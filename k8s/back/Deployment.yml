@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kopis-back
+  labels:
+    app: kopis-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kopis-back
+  template:
+    metadata:
+      labels:
+        app: kopis-back
+    spec:
+      containers:
+        - name: kopis-back
+          image: limchaeseong/kopis-back:1.4
+          ports:
+            - containerPort: 8080

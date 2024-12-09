@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: kopis-back
+  datasource:
+    url: jdbc:mysql://kopisdb-service:3306/kopis?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: kopis1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.kopis.kopisback: debug

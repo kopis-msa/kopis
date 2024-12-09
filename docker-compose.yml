@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: kopis-back/build/libs
+      dockerfile: Dockerfile
+    container_name: kopis-back
+    networks:
+      - kopis_net
+    ports:
+      - "8080:8080"
+  frontend:
+    build:
+      context: kopis-front
+      dockerfile: Dockerfile
+    container_name: kopis-front
+    networks:
+      - kopis_net
+    depends_on:
+      - "backend"
+    ports:
+      - "3000:3000"
+networks:
+  kopis_net:
+    external:
+      name: kopis_net

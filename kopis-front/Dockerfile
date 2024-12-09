@@ -1,0 +1,8 @@
+FROM node:14
+WORKDIR /app
+COPY package-k8s.json ./package.json
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kopis-front
+  labels:
+    app: kopis-front # service의 selector.app의 이름가 같아야함
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kopis-front
+  template:
+    metadata:
+      labels:
+        app: kopis-front
+    spec:
+      containers:
+        - name: kopis-front
+          image: limchaeseong/kopis-front:241206.3
+          ports:
+            - containerPort: 3000

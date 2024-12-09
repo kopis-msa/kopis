@@ -1,0 +1,38 @@
+#mysql(DB) Deployment 실행
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kopisdb
+  labels:
+    app: kopisdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kopisdb
+  template:
+    metadata:
+      labels:
+        app: kopisdb
+    spec:
+      containers:
+        - name: kopisdb
+          image: mysql:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "kopis1234"
+            - name: MYSQL_DATABASE
+              value: "kopis"
+            - name: MYSQL_USER
+              value: "admin"
+            - name: MYSQL_PASSWORD
+              value: "kopis1234"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: kopis-data
+      volumes:
+        - name: kopis-data
+          persistentVolumeClaim:
+            claimName: mysql-pvc
