@@ -1,24 +1,31 @@
 services:
   backend:
     build:
-      context: kopis-back/build/libs
-      dockerfile: Dockerfile
+      context: kopis-back
+      dockerfile: Dockerfile.yml
+    image: limchaeseong/kopis-back:241216.1
     container_name: kopis-back
     networks:
       - kopis_net
     ports:
-      - "8080:8080"
+      - "8081:8081"
   frontend:
     build:
       context: kopis-front
       dockerfile: Dockerfile
+    environment:
+      - REACT_APP_API_URL=http://localhost:8081
+      - REACT_APP_ENV_MODE=Docker
+      - PORT=3001
+      - WDS_SOCKET_PORT=3001
+    image: limchaeseong/kopis-front:241216.1
     container_name: kopis-front
     networks:
       - kopis_net
     depends_on:
       - "backend"
     ports:
-      - "3000:3000"
+      - "3001:3001"
 networks:
   kopis_net:
     external:

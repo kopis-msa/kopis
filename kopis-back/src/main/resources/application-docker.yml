@@ -1,14 +1,10 @@
 server:
-  port: 8082
+  port: 8081
 spring:
   application:
     name: kopis-back
   datasource:
-#    url: jdbc:mysql://localhost:3306/kopis?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-#    username: root
-#    password: kopis1234
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:postgresql://localhost:5432/kopis
+    url: jdbc:postgresql://kopis-db:5432/kopis
     username: admin
     password: kopis1234
     driver-class-name: org.postgresql.Driver
@@ -18,7 +14,7 @@ logging:
   level:
     com.kopis.kopisback: debug
 app:
-  frontUrl: http://localhost:3002
+  frontUrl: http://localhost:3001
 mybatis:
   mapper-locations: classpath:mappers/**/*.xml
   type-aliases-package: com.kopis.kopisback

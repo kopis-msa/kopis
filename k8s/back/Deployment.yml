@@ -19,3 +19,8 @@ spec:
           image: limchaeseong/kopis-back:1.4
           ports:
             - containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
