@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kopis.kopisback.performance.repository.PerformanceMapper">
+    <select id="findById" parameterType="String" resultType="perf">
+        SELECT prfid FROM performance WHERE prfid = #{prfId}
+    </select>
+
+    <select id="findAll" resultType="perf">
+        select
+            prf.prfId,
+            prfNm,
+            prfType,
+            prfinfo.zip,
+            prfinfo.addr,
+            prfdt.startdate,
+            prfdt.enddate
+        from
+            performance         prf,
+            performancedt       prfDt,
+            performanceinfo    prfInfo
+        where prf.prfid = prfDt.prfid
+          and prf.prfid = prfInfo.prfid
+          and prfDt.prfid = prfInfo.prfid
+          and prfDt.prfsn = prfInfo.prfsn
+        order by prf.prfid
+        limit 10000
+    </select>
+
+    <insert id="insertPerformance" parameterType="perf">
+        INSERT INTO performance (prf_id, prf_nm, prf_type, price, author)
+        VALUES (#{prfId}, #{prfNm}, #{prfType}, #{price}, #{author})
+    </insert>
+
+    <update id="updatePerformance" parameterType="perf">
+        UPDATE performance
+        SET prf_nm = #{prfNm},
+            prf_type = #{prfType},
+            price = #{price},
+            author = #{author}
+        WHERE prf_id = #{prfId}
+    </update>
+
+    <delete id="deletePerformance" parameterType="string">
+        DELETE FROM performance WHERE prf_id = #{prfId}
+    </delete>
+</mapper>
