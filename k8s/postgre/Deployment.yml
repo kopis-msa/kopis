@@ -1,0 +1,36 @@
+#mysql(DB) Deployment 실행
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kopisdb2
+  labels:
+    app: kopisdb2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kopisdb2
+  template:
+    metadata:
+      labels:
+        app: kopisdb2
+    spec:
+      containers:
+        - name: kopisdb2
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: admin
+            - name: POSTGRES_PASSWORD
+              value: kopis1234
+            - name: POSTGRES_DB
+              value: kopis
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgres
+              name: kopis-data2
+      volumes:
+        - name: kopis-data2
+          persistentVolumeClaim:
+            claimName: postgres-pvc

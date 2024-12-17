@@ -1,0 +1,14 @@
+#mysql(DB) service 실행
+apiVersion: v1
+kind: Service
+metadata:
+  name: kopisdb2-service
+spec:
+  selector:
+    app: kopisdb2
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30037
+  type: NodePort

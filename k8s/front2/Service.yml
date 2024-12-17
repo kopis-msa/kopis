@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kopis-front2
+spec:
+  selector:
+    app: kopis-front2
+  ports:
+    - protocol: TCP
+      port: 3004
+      targetPort: 3004
+      nodePort: 30082
+  type: LoadBalancer

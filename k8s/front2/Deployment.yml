@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kopis-front2
+  labels:
+    app: kopis-front2 # service의 selector.app의 이름가 같아야함
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kopis-front2
+  template:
+    metadata:
+      labels:
+        app: kopis-front2
+    spec:
+      containers:
+        - name: kopis-front2
+          image: limchaeseong/kopis-front:241217.1-k8s
+          ports:
+            - containerPort: 3004
+          env:
+            - name: PORT
+              value: "3004"
+            - name: WDS_SOCKET_PORT
+              value: "3004"
+            - name: REACT_APP_API_URL
+              value: "http://localhost:8084"
+            - name: REACT_APP_ENV_MODE
+              value: "k8s"

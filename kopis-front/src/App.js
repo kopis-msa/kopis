@@ -14,9 +14,11 @@ function App() {
   const api_url = process.env.REACT_APP_API_URL || 'http://localhost:8082';
   const env = process.env.REACT_APP_ENV_MODE || 'Local';
 
+  axios.defaults.baseURL = api_url;
+
   const getBoard = async () => {
       try{
-          const res = await axios.get(api_url+'/board');
+          const res = await axios.get('/board');
           if(res != null){
               console.log(res.data);
               setBoard(res.data)
@@ -28,7 +30,7 @@ function App() {
 
     const getPerformance = async () => {
         try{
-            const res = await axios.get(api_url+'/performance/findAll');
+            const res = await axios.get('/performance/findAll');
             if(res != null){
                 console.log(res.data);
                 setPerformance(res.data)
@@ -39,7 +41,7 @@ function App() {
     };
 
   const deleteBoard = async (bno) =>{
-    const res = await axios.post(api_url+'/board/delete',{bno: bno});
+    const res = await axios.post('/board/delete',{bno: bno});
     if(res != null){
       console.log("삭제 성공", bno);
       await getBoard();
@@ -58,7 +60,7 @@ function App() {
       return;
     }
 
-    const res = await axios.post(api_url+'/board/register',target);
+    const res = await axios.post('/board/register',target);
     if(res != null){
       console.log("등록 성공", target);
       await getBoard();
@@ -249,7 +251,7 @@ function App() {
                   {
                       performance && performance.length === 0 ?
                           (<tr style={{borderBottom: '1px solid #ddd'}}>
-                              <td colSpan={4} style={{padding: '10px', verticalAlign: 'center'}}>
+                              <td colSpan={9} style={{padding: '10px', verticalAlign: 'center'}}>
                                   게시글이 없습니다
                               </td>
                           </tr>) : null

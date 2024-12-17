@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kopis-back2
+  labels:
+    app: kopis-back2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kopis-back2
+  template:
+    metadata:
+      labels:
+        app: kopis-back2
+    spec:
+      containers:
+        - name: kopis-back2
+          image: limchaeseong/kopis-back:241217.1-k8s
+          ports:
+            - containerPort: 8084
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
